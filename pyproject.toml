@@ -14,7 +14,7 @@ license = {text = "MIT"}
 [project.optional-dependencies]
 
 [project.scripts]
-clite = "clite.src.__main__:main"
+clite = "clite.src.__main__:main_or_fail"
 
 [tool.pdm]
 version = { source = "scm" }
