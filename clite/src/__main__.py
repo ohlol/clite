@@ -2,13 +2,16 @@ import argparse
 import os
 import sys
 from tap import Tap
+
+from clite.src import __version__
 from clite.src.command import import_command
 from clite.src.commands.commands import available_commands
 from clite.src.errors import CliteExecError
 
 
 class Parser(Tap):
-    pass
+    def configure(self):
+        self.add_argument("-V", action="version", help="print version", version="%(prog)s {version}".format(version=__version__))
 
 
 def extract_subcommand(args):
@@ -19,7 +22,15 @@ def extract_subcommand(args):
 
 
 def main_or_fail():
-    program_name, subcommand_name, subcommand_args = extract_subcommand(sys.argv)
+    subcommand_name, subcommand_args = extract_subcommand(sys.argv)
+
+    parser = Parser(formatter_class=argparse.RawDescriptionHelpFormatter, usage="%(prog)s [command]", epilog=available_commands())
+    parser.parse_args(known_only=True)
+
+    if len(sys.argv) < 2:
+        parser.print_usage()
+        sys.exit(1)
+
     if subcommand_name:
         subcommand = import_command(subcommand_name)
         if subcommand:
@@ -29,14 +40,11 @@ def main_or_fail():
                 sys.exit(subcommand.run(*subcommand_args))
             except CliteExecError as e:
                 print(f"error: {e.__class__.__name__}({e})", file=sys.stderr)
+                sys.exit(1)
         else:
             print("error: unknown command\n")
             print(available_commands())
             sys.exit(1)
-    else:
-        short_program = os.path.split(program_name)[-1]
-
-        Parser(formatter_class=argparse.RawDescriptionHelpFormatter, usage=f"{short_program} [command]", epilog=available_commands()).print_help()
 
 
 if __name__ == "__main__":
