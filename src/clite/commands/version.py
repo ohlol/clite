@@ -1,14 +1,19 @@
-from tap import Tap
-
-from clite import __version__
+import argparse
 
 
-class Parser(Tap):
-    pass
+from clite.util.version import __version__
+
+
+def get_parser():
+    parser = argparse.ArgumentParser()
+
+    return parser
 
 
 def run(*args):
-    Parser().parse_args(args)
+    parser = get_parser()
+    parser.parse_args(args=args)
+
     print(f"version: {__version__}")
 
     return(0)

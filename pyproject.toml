@@ -6,18 +6,21 @@ authors = [
     {name = "Scott Smith", email = "scott@ohlol.net"},
 ]
 dependencies = [
-    "typed-argument-parser>=1.7.2",
+    "importlib-resources>=5.9.0",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
-[project.optional-dependencies]
 
 [project.scripts]
 clite = "clite.__main__:main_or_fail"
 
 [tool.pdm]
 version = { source = "scm" }
+
+[tool.pdm.build]
+includes = ["src/clite"]
+
 [tool.pdm.dev-dependencies]
 dev = [
     "pre-commit>=2.20.0",
