@@ -1,6 +1,6 @@
 from tap import Tap
 
-from clite.src import __version__
+from clite import __version__
 
 
 class Parser(Tap):
