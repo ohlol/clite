@@ -1,26 +1,33 @@
 import argparse
 import sys
 
-from pkg_resources import get_platform
-
-from clite.util.version import __version__
 from clite.command import import_command
 from clite.commands.commands import available_commands
 from clite.errors import CliteExecError
+from clite.util.version import __version__
 
 
 def get_parser():
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, usage="%(prog)s [command]", epilog=available_commands())
-    parser.add_argument("-V", action="version", help="print version", version="%(prog)s {version}".format(version=__version__))
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        usage="%(prog)s [command]",
+        epilog=available_commands(),
+    )
+    parser.add_argument(
+        "-V",
+        action="version",
+        help="print version",
+        version="%(prog)s {version}".format(version=__version__),
+    )
 
     return parser
 
 
 def extract_subcommand(args):
     if len(args) > 1:
-        return(args[1], args[2:])
+        return (args[1], args[2:])
     else:
-        return(None, None)
+        return (None, None)
 
 
 def main_or_fail():
