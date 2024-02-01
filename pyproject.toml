@@ -15,6 +15,27 @@ license = {text = "MIT"}
 [project.scripts]
 clite = "clite.__main__:main_or_fail"
 
+[tool.black]
+line-length = 79
+preview = true
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+
 [tool.pdm]
 version = { source = "scm" }
 
