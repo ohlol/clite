@@ -1,17 +1,19 @@
 import argparse
-import os
 import sys
-from tap import Tap
 
-from clite import __version__
+from pkg_resources import get_platform
+
+from clite.util.version import __version__
 from clite.command import import_command
 from clite.commands.commands import available_commands
 from clite.errors import CliteExecError
 
 
-class Parser(Tap):
-    def configure(self):
-        self.add_argument("-V", action="version", help="print version", version="%(prog)s {version}".format(version=__version__))
+def get_parser():
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, usage="%(prog)s [command]", epilog=available_commands())
+    parser.add_argument("-V", action="version", help="print version", version="%(prog)s {version}".format(version=__version__))
+
+    return parser
 
 
 def extract_subcommand(args):
@@ -24,8 +26,8 @@ def extract_subcommand(args):
 def main_or_fail():
     subcommand_name, subcommand_args = extract_subcommand(sys.argv)
 
-    parser = Parser(formatter_class=argparse.RawDescriptionHelpFormatter, usage="%(prog)s [command]", epilog=available_commands())
-    parser.parse_args(known_only=True)
+    parser = get_parser()
+    parser.parse_known_args()
 
     if len(sys.argv) < 2:
         parser.print_usage()

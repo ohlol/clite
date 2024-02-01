@@ -1,13 +1,20 @@
-from tap import Tap
-import importlib.resources
+import argparse
+import sys
+
+if sys.version_info >= (3, 10):
+    from importlib.resources import files
+else:
+    from importlib_resources import files
 
 
-class Parser(Tap):
-    pass
+def get_parser():
+    parser = argparse.ArgumentParser()
+
+    return parser
 
 
 def all_commands():
-    for f in sorted(importlib.resources.files("clite.commands").iterdir()):
+    for f in sorted(files("clite.commands").iterdir()):
         if f.suffix == ".py":
             yield f.stem
 
@@ -21,7 +28,9 @@ def available_commands():
 
 
 def run(*args):
-    Parser().parse_args(args)
+    parser = get_parser()
+    parser.parse_args(args=args)
+
     print(available_commands())
 
     return(0)
