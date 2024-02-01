@@ -14,3 +14,5 @@ def all_commands():
 def run(*args):
     Parser().parse_args(args)
     print(*[cmd for cmd in all_commands()], sep="\n")
+
+    return(0)
