@@ -10,6 +10,6 @@ def import_command(cmd):
         mod = importlib.util.module_from_spec(spec)
         sys.modules["module.name"] = mod
         spec.loader.exec_module(mod)
-        return mod
+        return(mod)
     except FileNotFoundError:
-        return None
+        return(None)
