@@ -1,5 +1,5 @@
 import subprocess
-from clite.src.errors import CliteExecError
+from clite.errors import CliteExecError
 
 
 def run(*cmd, merge_outputs=False, **run_kwargs):

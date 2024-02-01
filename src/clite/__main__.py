@@ -3,10 +3,10 @@ import os
 import sys
 from tap import Tap
 
-from clite.src import __version__
-from clite.src.command import import_command
-from clite.src.commands.commands import available_commands
-from clite.src.errors import CliteExecError
+from clite import __version__
+from clite.command import import_command
+from clite.commands.commands import available_commands
+from clite.errors import CliteExecError
 
 
 class Parser(Tap):
@@ -16,9 +16,9 @@ class Parser(Tap):
 
 def extract_subcommand(args):
     if len(args) > 1:
-        return(args[0], args[1], args[2:])
+        return(args[1], args[2:])
     else:
-        return(args[0], None, None)
+        return(None, None)
 
 
 def main_or_fail():

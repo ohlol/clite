@@ -7,7 +7,7 @@ class Parser(Tap):
 
 
 def all_commands():
-    for f in sorted(importlib.resources.files("clite.src.commands").iterdir()):
+    for f in sorted(importlib.resources.files("clite.commands").iterdir()):
         if f.suffix == ".py":
             yield f.stem
 
