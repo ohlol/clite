@@ -1,0 +1,28 @@
+[project]
+name = "clite"
+description = "A CLI to help create and centralize many small, dissimilar utilities."
+dynamic = ["version"]
+authors = [
+    {name = "Scott Smith", email = "scott@ohlol.net"},
+]
+dependencies = [
+    "typed-argument-parser>=1.7.2",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+[project.optional-dependencies]
+
+[project.scripts]
+clite = "clite.src.__main__:main"
+
+[tool.pdm]
+version = { source = "scm" }
+[tool.pdm.dev-dependencies]
+dev = [
+    "pre-commit>=2.20.0",
+]
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
