@@ -11,5 +11,5 @@ def run(*cmd, merge_outputs=False, **run_kwargs):
 
     try:
         return subprocess.run(cmd, **run_kwargs)
-    except subprocess.CalledProcessError:
-        raise CliteExecError(*cmd)
+    except subprocess.CalledProcessError as err:
+        raise CliteExecError(*cmd) from err

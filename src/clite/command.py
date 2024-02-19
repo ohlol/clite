@@ -5,9 +5,7 @@ import sys
 
 def import_command(cmd):
     try:
-        spec_path = os.path.join(
-            os.path.dirname(__file__), "commands", f"{cmd}.py"
-        )
+        spec_path = os.path.join(os.path.dirname(__file__), "commands", f"{cmd}.py")
         spec = importlib.util.spec_from_file_location(
             f"clite.commands.{cmd}", spec_path
         )

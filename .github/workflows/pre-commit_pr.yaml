@@ -1,0 +1,17 @@
+name: pre-commit
+
+on:
+  pull_request:
+
+jobs:
+  pre-commit_pr:
+    name: Run pre-commit on PR branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args:
