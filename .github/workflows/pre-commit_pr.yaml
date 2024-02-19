@@ -1,4 +1,4 @@
-name: pre-commit/pr
+name: pre-commit
 
 on:
   pull_request:

@@ -1,4 +1,4 @@
-name: pre-commit/main
+name: pre-commit
 
 on:
   push:
