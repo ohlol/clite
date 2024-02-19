@@ -39,4 +39,11 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: 3.12
+      - uses: actions/cache@v3
+        id: cache-venv
+        with:
+          path: .venv
+          key: setup-venv-${{ runner.os }}-py-${{ steps.setup-python.outputs.python-version }}-${{ steps.setup-python.outputs.python-path }}
+      - run: make venv
+        if: steps.cache-venv.outputs.cache-hit != 'true'
       - run: make test
