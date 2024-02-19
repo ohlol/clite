@@ -2,7 +2,8 @@ base_requirements = requirements/base.txt
 dev_requirements = requirements/dev.txt
 
 mypy: update-pip setup-dev
-	mypy src
+	. .venv/bin/activate; \
+		mypy src
 
 setup: update-pip
 	. .venv/bin/activate; \
