@@ -1,12 +1,7 @@
 import argparse
-import sys
+from importlib.resources import files
 from pathlib import Path
 from typing import Generator
-
-if sys.version_info >= (3, 10):
-    from importlib.resources import files
-else:
-    from importlib_resources import files
 
 
 def get_parser() -> argparse.ArgumentParser:
