@@ -20,8 +20,8 @@ jobs:
       - run: make venv
         if: steps.cache-venv.outputs.cache-hit != 'true'
       - run: make mypy
-  pre-commit_pr:
-    name: Run pre-commit on PR branch
+  pre-commit:
+    name: Run pre-commit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,3 +31,12 @@ jobs:
       - uses: pre-commit/action@v3.0.1
         with:
           extra_args:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      - run: make test

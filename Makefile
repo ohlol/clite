@@ -13,6 +13,10 @@ setup-dev: setup
 	. .venv/bin/activate; \
 		python3 -m piptools sync $(dev_requirements)
 
+test: setup-dev
+	. .venv/bin/activate; \
+		env PYTHONPATH=src python -m pytest
+
 update: update-pip
 	mkdir -p requirements
 	. .venv/bin/activate; \
