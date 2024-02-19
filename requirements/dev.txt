@@ -24,6 +24,10 @@ importlib-resources==6.1.1
     # via
     #   clite
     #   clite (pyproject.toml)
+mypy==1.8.0
+    # via clite (pyproject.toml)
+mypy-extensions==1.0.0
+    # via mypy
 nodeenv==1.8.0
     # via pre-commit
 packaging==23.2
@@ -40,6 +44,8 @@ pyproject-hooks==1.0.0
     #   pip-tools
 pyyaml==6.0.1
     # via pre-commit
+typing-extensions==4.9.0
+    # via mypy
 virtualenv==20.25.0
     # via pre-commit
 wheel==0.42.0

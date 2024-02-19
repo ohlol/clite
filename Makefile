@@ -1,13 +1,16 @@
 base_requirements = requirements/base.txt
 dev_requirements = requirements/dev.txt
 
+mypy: update-pip setup-dev
+	mypy src
+
 setup: update-pip
 	. .venv/bin/activate; \
 		python3 -m piptools sync $(base_requirements)
 
 setup-dev: setup
 	. .venv/bin/activate; \
-		python3 -m pip install -r $(dev_requirements)
+		python3 -m piptools sync $(dev_requirements)
 
 update: update-pip
 	mkdir -p requirements

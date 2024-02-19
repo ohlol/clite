@@ -1,13 +1,13 @@
 import argparse
+import subprocess
 import sys
 
 from clite.command import import_command
 from clite.commands.commands import available_commands
-from clite.errors import CliteExecError
 from clite.util.version import __version__
 
 
-def get_parser():
+def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         usage="%(prog)s [command]",
@@ -23,14 +23,14 @@ def get_parser():
     return parser
 
 
-def extract_subcommand(args):
+def extract_subcommand(args: str) -> tuple[str | None, str | None]:
     if len(args) > 1:
         return (args[1], args[2:])
     else:
         return (None, None)
 
 
-def main_or_fail():
+def main_or_fail() -> None:
     subcommand_name, subcommand_args = extract_subcommand(sys.argv)
 
     parser = get_parser()
@@ -47,7 +47,7 @@ def main_or_fail():
 
             try:
                 sys.exit(subcommand.run(*subcommand_args))
-            except CliteExecError as e:
+            except subprocess.CalledProcessError as e:
                 print(f"error: {e.__class__.__name__}({e})", file=sys.stderr)
                 sys.exit(1)
         else:

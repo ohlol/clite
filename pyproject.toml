@@ -20,11 +20,17 @@ dynamic = ["version"]
 dev = [
     "build",
     "clite",  # editable
+    "mypy",
     "pip-tools",
     "pre-commit",
 ]
 
 [project.scripts]
 clite = "clite.__main__:main_or_fail"
+
+[tool.mypy]
+explicit_package_bases = true
+namespace_packages = true
+strict = true
 
 [tool.setuptools_scm]

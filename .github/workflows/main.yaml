@@ -1,11 +1,16 @@
-name: pre-commit
+name: main
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  SKIP: no-commit-to-branch  # allow merging to main
 
 jobs:
-  pre-commit_pr:
-    name: Run pre-commit on PR branch
+  pre-commit_main:
+    name: Run pre-commit on merge to main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
