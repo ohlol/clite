@@ -12,8 +12,6 @@ cfgv==3.4.0
     # via pre-commit
 click==8.1.7
     # via pip-tools
-clite @ file:///Users/scott/prog/clite
-    # via clite (pyproject.toml)
 distlib==0.3.8
     # via virtualenv
 filelock==3.13.1
@@ -21,9 +19,7 @@ filelock==3.13.1
 identify==2.5.35
     # via pre-commit
 importlib-resources==6.1.1
-    # via
-    #   clite
-    #   clite (pyproject.toml)
+    # via clite (pyproject.toml)
 mypy==1.8.0
     # via clite (pyproject.toml)
 mypy-extensions==1.0.0

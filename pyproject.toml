@@ -19,7 +19,6 @@ dynamic = ["version"]
 [project.optional-dependencies]
 dev = [
     "build",
-    "clite",  # editable
     "mypy",
     "pip-tools",
     "pre-commit",
