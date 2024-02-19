@@ -1,15 +1,13 @@
 import subprocess
+from typing import Any
 
-from clite.errors import CliteExecError
 
-
-def run(*cmd, merge_outputs=False, **run_kwargs):
+def run(
+    *cmd: str, merge_outputs: bool = False, run_kwargs: dict[Any, Any]
+) -> subprocess.CompletedProcess[bytes]:
     run_kwargs["check"] = True
 
     if merge_outputs:
         run_kwargs["capture_output"] = True
 
-    try:
-        return subprocess.run(cmd, **run_kwargs)
-    except subprocess.CalledProcessError as err:
-        raise CliteExecError(*cmd) from err
+    return subprocess.run(cmd, **run_kwargs)

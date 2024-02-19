@@ -1,0 +1,33 @@
+name: pr
+
+on:
+  pull_request:
+
+jobs:
+  mypy:
+    name: Run mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      - uses: actions/cache@v3
+        id: cache-venv
+        with:
+          path: .venv
+          key: setup-venv-${{ runner.os }}-py-${{ steps.setup-python.outputs.python-version }}-${{ steps.setup-python.outputs.python-path }}
+      - run: make venv
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+      - run: make mypy
+  pre-commit_pr:
+    name: Run pre-commit on PR branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args:

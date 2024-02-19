@@ -1,0 +1,3 @@
+from types import ModuleType
+
+def import_command(cmd: str) -> ModuleType: ...
