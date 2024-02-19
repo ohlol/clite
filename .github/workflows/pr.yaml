@@ -46,4 +46,6 @@ jobs:
           key: setup-venv-${{ runner.os }}-py-${{ steps.setup-python.outputs.python-version }}-${{ steps.setup-python.outputs.python-path }}
       - run: make venv
         if: steps.cache-venv.outputs.cache-hit != 'true'
-      - run: make test
+      - run: |
+          python -m pip install .
+          make test
