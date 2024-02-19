@@ -1,0 +1,22 @@
+name: pre-commit/main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SKIP: no-commit-to-branch  # allow merging to main
+
+jobs:
+  pre-commit_main:
+    name: Run pre-commit on merge to main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args:
