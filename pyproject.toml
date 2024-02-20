@@ -20,7 +20,6 @@ dynamic = ["version"]
 dev = [
     "build",
     "mypy",
-    "pip-tools",
     "pre-commit",
     "pytest",
     "pytest-mock",

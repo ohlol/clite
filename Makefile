@@ -1,37 +1,28 @@
-base_requirements = requirements/base.txt
-dev_requirements = requirements/dev.txt
+ACTIVATE = .venv/bin/activate
+CLITE = .venv/bin/clite
 
-mypy: update-pip setup-dev
-	. .venv/bin/activate; \
-		mypy src
-
-setup: update-pip
-	. .venv/bin/activate; \
-		python3 -m piptools sync $(base_requirements)
-
-setup-dev: setup
-	. .venv/bin/activate; \
-		python3 -m piptools sync $(dev_requirements)
-
-test: setup-dev
-	. .venv/bin/activate; \
-		env PYTHONPATH=src python -m pytest
-
-update: update-pip
-	mkdir -p requirements
-	. .venv/bin/activate; \
-		python3 -m piptools compile -o $(base_requirements) pyproject.toml
-
-update-dev: update
-	. .venv/bin/activate; \
-		python3 -m piptools compile -o $(dev_requirements) --extra dev pyproject.toml
-	pre-commit autoupdate
-
-update-pip:
-	. .venv/bin/activate; \
-		python3 -m pip install -U pip pip-tools setuptools
-
-venv:
+$(ACTIVATE):
 	python3 -m venv .venv
 
-.PHONY: setup setup-dev update update-dev update-pip
+$(CLITE): $(ACTIVATE) pyproject.toml
+	. $(ACTIVATE); \
+		python3 -m pip install -e .[dev]
+
+clean:
+	rm -rf .venv
+
+install-dev: $(CLITE)
+	@true
+
+mypy: $(CLITE)
+	. $(ACTIVATE); \
+		mypy src
+
+test: $(CLITE)
+	. $(ACTIVATE); \
+		env PYTHONPATH=src python3 -m pytest
+
+venv: $(ACTIVATE)
+	@true
+
+.PHONY: clean install-dev mypy test venv
